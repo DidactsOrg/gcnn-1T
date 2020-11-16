@@ -112,3 +112,10 @@ class XenonDataset(Dataset):
             idx_shift = 0
         else:
             idx_shift = int(self.content_size * self.train)
+        return torch.load( os.path.join(path_to_proc, 'graph_{}.pt'.format(idx+idx_shift)) )
+
+    def len(self):
+        """ Returns the length of the processed dataset. """
+        if self.train:
+            return int(self.training_split*self.content_size)
+        return int((1-training_split)*self.content_size)
